@@ -1,0 +1,30 @@
+/* Setting font style to Arial */
+body {
+	font-family: Arial;	
+}
+
+/* Centers all elements with the class "centered" */
+.centered {
+	text-align: center;
+}
+
+/* Creates a flex container to make 2 columns */
+.container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+/* Adjusts the left column */
+.flex-left {
+	width: 60%;
+	flex-wrap: flex;
+	flex-direction: column;
+}
+
+/* Adjusts the right column */
+.flex-right {
+	flex-direction: column;
+	width: 40%;
+	flex-wrap: wrap;
+}
