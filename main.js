@@ -1,34 +1,14 @@
-//###############################################################
-// Reading data from a file 
-// So far we've seen how to use hardcoded data. Now, we will 
-// look at plotting data read in from a file. To read data from 
-// another file, you will need to set up a python simple server
-// in the same directory as your code and data. To do this:
-//  (1) Open your terminal or command line 
-//  (2) Navigate to the directory your code is in 
-//  (3) Run the command (it will vary slightle depending on how 
-//      python is set up for you): python3 -m http.server
-//  (4) You will see: 
-//        Serving HTTP on :: port 8000 (http://[::]:8000/) ...
-//  (5) Naviage to localhost:8000 in the browser to see your
-//      webpage
-//###############################################################
- 
-// First, we need a frame  
+// Create frame  
 const FRAME_HEIGHT = 550;
 const FRAME_WIDTH = 700; 
+
+// Set margins
 const MARGINS = {left: 50, right: 50, top: 50, bottom: 50};
 
-// Let's do another example, with a scale 
+// Set vis dimensions
 const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
 const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right; 
 
-
-//###############################################################
-// Adding Interaction  
-// To enable interaction, we will still need event handlers
-// and listeners. However, we will use d3 syntax instead of js. 
-//###############################################################
 
 const FRAME1 = d3.select("#vis1")
                   .append("svg")
@@ -36,8 +16,9 @@ const FRAME1 = d3.select("#vis1")
                     .attr("width", FRAME_WIDTH)
                     .attr("class", "frame"); 
 
-// This time, let's define a function that builds our plot
-function build_interactive_plot() {
+
+// Build interactive scatter plot
+function build_interactive_scatter_plot() {
 
   d3.csv("data/scatter-data.csv").then((data) => {
 
@@ -70,48 +51,40 @@ function build_interactive_plot() {
           .attr("r", 10)
           .attr("class", "point");
 
-    // // Tooltip
 
-    //  // To add a tooltip, we will need a blank div that we 
-    // //  fill in with the appropriate text. Be use to note the
-    // //  styling we set here and in the .css
-    // const TOOLTIP = d3.select("#vis3")
-    //                     .append("div")
-    //                       .attr("class", "tooltip")
-    //                       .style("opacity", 0); 
-
-    // // Define event handler functions for tooltips
-    // function handleMouseover(event, d) {
-    //   // on mouseover, make opaque 
-    //   TOOLTIP.style("opacity", 1); 
+    // Define event handler functions
+    function handleMouseover(event, d) {
+      // on mouseover, show border
+      d3.select(d.)
+          .style("stroke", "pink");
       
-    // }
+    }
 
-    // function handleMousemove(event, d) {
-    //   // position the tooltip and fill in information 
-    //   TOOLTIP.html("Name: " + d.name + "<br>Value: " + d.x)
-    //           .style("left", (event.pageX + 10) + "px") //add offset
-    //                                                       // from mouse
-    //           .style("top", (event.pageY - 50) + "px"); 
-    // }
+    function handleMousemove(event, d) {
+      // on mouseover, show border
+      d3.select(d)
+          .style("stroke", "black");
+    }
 
-    // function handleMouseleave(event, d) {
-    //   // on mouseleave, make transparant again 
-    //   TOOLTIP.style("opacity", 0); 
-    // } 
+    function handleMouseleave(event, d) {
+      // on mouseover, show border
+      d3.select(d)
+          .style("stroke", "black");
+    } 
 
-    // // Add event listeners
-    // FRAME3.selectAll(".point")
-    //       .on("mouseover", handleMouseover) //add event listeners
-    //       .on("mousemove", handleMousemove)
-    //       .on("mouseleave", handleMouseleave);    
+    // Add event listeners
+    FRAME1.selectAll(".point")
+          .on("mouseover", handleMouseover) //add event listeners
+          .on("mousemove", handleMousemove)
+          .on("mouseleave", handleMouseleave);    
 
-    // Add an axis to the vis  
+    // Add x axis to the vis  
     FRAME1.append("g") 
           .attr("transform", "translate(" + MARGINS.left + "," + (VIS_HEIGHT + MARGINS.top) + ")") 
           .call(d3.axisBottom(X1_SCALE).ticks(4)) 
             .attr("font-size", '20px');
-    // add an axis
+
+    // Add y axis
     FRAME1.append("g")       // g is a place holder for an svg
           .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.bottom + ")")
           .call(d3.axisLeft(Y1_SCALE).ticks(4))
@@ -123,7 +96,7 @@ function build_interactive_plot() {
 }
 
 // Call function 
-build_interactive_plot();
+build_interactive_scatter_plot();
 
 
 
