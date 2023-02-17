@@ -39,9 +39,8 @@ body {
 }
 
 .border {
-	fill: transparent;
-	border-width: 5px;
-	border-color: blue;
+	stroke: crimson;
+	stroke-width: 5px;
 }
 
 .bar {

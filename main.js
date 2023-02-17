@@ -79,25 +79,23 @@ function build_interactive_plots() {
     function toggleBorder(event, d) {
 
       // add or remove a border to a point if clicked on
-      console.log(d.x)
-      console.log(d)
-      console.log(point.cx)
-      console.log(Object.values(event.classList))
-      if (Object.values(event.classList).includes('border')) {
-        event.classList.remove(border)
-        BORDER.style("opacity", 0); 
+      console.log('hey', this.cx)
+      if (Object.values(this.classList).includes('border')) {
+        this.classList.remove('border')
       } else {
-        event.classList.add(border)
-        BORDER.style("left", (event.pageX + 10) + "px") //add offset
-              .style("top", (event.pageY - 50) + "px"); 
-      }}
+        this.classList.add('border')
+
+      // show the coordinates of the last point clicked in the right column
+      let lastPointClicked = "Last Point Clicked: \n" + '(' + d.x + ', ' + d.y + ')';
+
+      let lastPointClickedDiv = document.getElementById("last-point-clicked");
+      lastPointClickedDiv.innerHTML = lastPointClicked;
+      }
+    }
 
     // Add event listeners
     FRAME1.selectAll(".point")
       .on('click', toggleBorder)
-
-
-
   });
 }
 
