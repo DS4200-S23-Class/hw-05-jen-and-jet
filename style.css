@@ -28,3 +28,33 @@ body {
 	width: 40%;
 	flex-wrap: wrap;
 }
+
+/* Sets the colors of the points */
+.point{
+	fill: indigo;
+}
+
+.point:hover {
+	fill: yellow;
+}
+
+.border {
+	fill: transparent;
+	border-width: 5px;
+	border-color: blue;
+}
+
+.bar {
+	fill: forestgreen;
+}
+
+.bar:hover {
+	fill: aqua;
+}
+
+.tooltip {
+	position: absolute;
+	background-color: gray;
+	border: solid;
+	padding: 5px;
+}
