@@ -52,31 +52,14 @@ function build_interactive_scatter_plot() {
           .attr("class", "point");
 
 
-    // Define event handler functions
-    function handleMouseover(event, d) {
-      // on mouseover, show border
-      d3.select(d.)
-          .style("stroke", "pink");
-      
-    }
-
-    function handleMousemove(event, d) {
-      // on mouseover, show border
-      d3.select(d)
-          .style("stroke", "black");
-    }
-
-    function handleMouseleave(event, d) {
-      // on mouseover, show border
-      d3.select(d)
-          .style("stroke", "black");
-    } 
-
     // Add event listeners
     FRAME1.selectAll(".point")
-          .on("mouseover", handleMouseover) //add event listeners
-          .on("mousemove", handleMousemove)
-          .on("mouseleave", handleMouseleave);    
+          .on("mouseover", function() {
+                            d3.select(".point").attr("stroke", "pink")
+                                        .attr("stroke-width", "5px");}) //add event listeners
+          .on("mouseleave", function() {
+                              d3.select(".point").attr("stroke", "black")
+                                          .attr("stroke-width", "5px");});    
 
     // Add x axis to the vis  
     FRAME1.append("g") 
