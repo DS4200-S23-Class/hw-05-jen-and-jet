@@ -38,6 +38,15 @@ body {
 	fill: yellow;
 }
 
+
+.new-point{
+	fill: indigo;
+}
+
+.new-point:hover {
+	fill: yellow;
+}
+
 .border {
 	stroke: crimson;
 	stroke-width: 5px;
