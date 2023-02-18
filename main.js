@@ -51,7 +51,8 @@ function build_interactive_plots() {
           .attr("cx", (d) => { return (X1_SCALE(d.x) + SCATTER_PLOT_MARGINS.left); }) 
           .attr("cy", (d) => { return (Y1_SCALE(d.y) + SCATTER_PLOT_MARGINS.top); }) 
           .attr("r", 10)
-          .attr("class", "point");
+          .attr("class", "point")
+          .attr("id", (d) => { return '(' + d.x + ', ' + d.y + ')'; })
 
     // Add x axis to the vis  
     FRAME1.append("g") 
@@ -65,8 +66,7 @@ function build_interactive_plots() {
           .call(d3.axisLeft(Y1_SCALE).ticks(4))
             .attr("font-size", "20px");
 
-    function toggleBorder1(event, d) {
-
+    function toggleBorder(event, d) {
       // add or remove a border to a point if clicked on
       if (Object.values(this.classList).includes('border')) {
         this.classList.remove('border')
@@ -74,30 +74,13 @@ function build_interactive_plots() {
         this.classList.add('border')
 
       // show the coordinates of the last point clicked in the right column
-      let lastPointClicked = "Last Point Clicked: \n" + '(' + d.x + ', ' + d.y + ')';
-      console.log('hey', this)
+      coordinates = this.getAttribute("id")
+      let lastPointClicked = "Last Point Clicked: \n" + coordinates;
 
       let lastPointClickedDiv = document.getElementById("last-point-clicked");
       lastPointClickedDiv.innerHTML = lastPointClicked;
       }
     }
-
-    function toggleBorder2(event, d) {
-    
-      console.log('hola', this.classList)
-      // add or remove a border to a point if clicked on
-      if (Object.values(this.classList).includes('border')) {
-        this.classList.remove('border');
-      } else {
-        this.classList.add('border');
-      }
-
-      // show the coordinates of the last point clicked in the right column
-      let lastPointClicked = "Last Point Clicked: \n" + this.id;
-
-      let lastPointClickedDiv = document.getElementById("last-point-clicked");
-      lastPointClickedDiv.innerHTML = lastPointClicked;
-  }
 
 
     // Event handler for adding a point
@@ -115,12 +98,13 @@ function build_interactive_plots() {
       let y_coord = Number(selectYCoord.options[selectYCoord.selectedIndex].text);
 
       // create and set the attributes of the new element (point)
-       FRAME1.append("circle")  
-              .attr("cx", (X1_SCALE(x_coord) + SCATTER_PLOT_MARGINS.left))
-              .attr("cy", (Y1_SCALE(y_coord) + SCATTER_PLOT_MARGINS.top)) 
-              .attr("r", 10)
-              .attr("class", "point")
-              .attr("id", '(' + x_coord + ', ' + y_coord + ')')
+     FRAME1.append("circle")  
+            .attr("cx", (X1_SCALE(x_coord) + SCATTER_PLOT_MARGINS.left))
+            .attr("cy", (Y1_SCALE(y_coord) + SCATTER_PLOT_MARGINS.top)) 
+            .attr("r", 10)
+            .attr("class", "point")
+            .attr("id", '(' + x_coord + ', ' + y_coord + ')')
+            .on('click', toggleBorder);
     }
 
     // get the button for adding a point
@@ -129,13 +113,8 @@ function build_interactive_plots() {
           .addEventListener('click', addPoint);
 
     // Add the event listeners that adds/removes a border to any point that gets clicked on
-    d3.selectAll(".point")
-      .on('click', toggleBorder1);
-
-    // Add the event listeners that adds/removes a border to any point that gets clicked on
-    FRAME1.selectAll(".new-point")
-      .on('click', toggleBorder2);
-
+    FRAME1.selectAll(".point")
+      .on('click', toggleBorder);
   }); 
 
     // Bar chart
