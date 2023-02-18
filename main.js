@@ -43,7 +43,7 @@ function build_interactive_plots() {
                       .domain([0, (MAX_Y1 + 1)])
                       .range([(MAX_Y1 * 50), 0]);
 
-    // Use BAR_X_SCALE to plot our points
+    // Plot the points on the scatter plot
     FRAME1.selectAll("points")  
         .data(data) // passed from .then  
         .enter()       
@@ -68,7 +68,6 @@ function build_interactive_plots() {
     function toggleBorder1(event, d) {
 
       // add or remove a border to a point if clicked on
-      console.log(d.x)
       if (Object.values(this.classList).includes('border')) {
         this.classList.remove('border')
       } else {
@@ -76,7 +75,7 @@ function build_interactive_plots() {
 
       // show the coordinates of the last point clicked in the right column
       let lastPointClicked = "Last Point Clicked: \n" + '(' + d.x + ', ' + d.y + ')';
-      console.log('hey', this.lastPointClicked)
+      console.log('hey', this)
 
       let lastPointClickedDiv = document.getElementById("last-point-clicked");
       lastPointClickedDiv.innerHTML = lastPointClicked;
@@ -120,23 +119,24 @@ function build_interactive_plots() {
               .attr("cx", (X1_SCALE(x_coord) + SCATTER_PLOT_MARGINS.left))
               .attr("cy", (Y1_SCALE(y_coord) + SCATTER_PLOT_MARGINS.top)) 
               .attr("r", 10)
-              .attr("class", "new-point")
+              .attr("class", "point")
               .attr("id", '(' + x_coord + ', ' + y_coord + ')')
     }
 
-    // get the button 
+    // get the button for adding a point
     document.getElementById('addPoint')
           // call the function (adding a point) when clicked
           .addEventListener('click', addPoint);
 
     // Add the event listeners that adds/removes a border to any point that gets clicked on
-    FRAME1.selectAll(".point")
+    d3.selectAll(".point")
       .on('click', toggleBorder1);
 
     // Add the event listeners that adds/removes a border to any point that gets clicked on
     FRAME1.selectAll(".new-point")
       .on('click', toggleBorder2);
-    });
+
+  }); 
 
     // Bar chart
 
@@ -191,41 +191,39 @@ function build_interactive_plots() {
         .attr("height", function(d) { return BAR_FRAME_HEIGHT - BAR_Y_SCALE(d.amount); })
         .attr("class", "bar");
 
-    
-
     // Tooltip
 
-        // To add a tooltip, we will need a blank div that we fill in with the appropriate text 
-        const TOOLTIP = d3.select("#vis2")
-                            .append("div")
-                              .attr("class", "tooltip")
-                              .style("opacity", 0); 
+    // To add a tooltip, we will need a blank div that we fill in with the appropriate text 
+    const TOOLTIP = d3.select("#vis2")
+                        .append("div")
+                          .attr("class", "tooltip")
+                          .style("opacity", 0); 
 
-        // Define event handler functions for tooltips
-        function handleMouseover(event, d) {
-          // on mouseover, make opaque 
-          TOOLTIP.style("opacity", 1); 
-          
-        }
+    // Define event handler functions for tooltips
+    function handleMouseover(event, d) {
+      // on mouseover, make opaque 
+      TOOLTIP.style("opacity", 1); 
+      
+    }
 
-        function handleMousemove(event, d) {
-          // position the tooltip and fill in information 
-          TOOLTIP.html("Category: " + d.category + "<br>Amount: " + d.amount)
-                  .style("left", (event.pageX + 10) + "px") //add offset
-                                                              // from mouse
-                  .style("top", (event.pageY - 50) + "px"); 
-        }
+    function handleMousemove(event, d) {
+      // position the tooltip and fill in information 
+      TOOLTIP.html("Category: " + d.category + "<br>Amount: " + d.amount)
+              .style("left", (event.pageX + 10) + "px") //add offset
+                                                          // from mouse
+              .style("top", (event.pageY - 50) + "px"); 
+    }
 
-        function handleMouseleave(event, d) {
-          // on mouseleave, make transparent again 
-          TOOLTIP.style("opacity", 0); 
-        } 
+    function handleMouseleave(event, d) {
+      // on mouseleave, make transparent again 
+      TOOLTIP.style("opacity", 0); 
+    } 
 
-        // Add event listeners
-        FRAME2.selectAll(".bar")
-              .on("mouseover", handleMouseover) //add event listeners
-              .on("mousemove", handleMousemove)
-              .on("mouseleave", handleMouseleave); 
+    // Add event listeners
+    FRAME2.selectAll(".bar")
+          .on("mouseover", handleMouseover) //add event listeners
+          .on("mousemove", handleMousemove)
+          .on("mouseleave", handleMouseleave); 
   });
 }
 
