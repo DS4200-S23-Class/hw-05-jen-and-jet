@@ -200,7 +200,7 @@ function build_interactive_plots() {
              .style("top", (event.pageY - 50) + "px"); 
     }
 
-    Event handler
+    // Event handler
     function handleMouseleave(event, d) {
       // on mouseleave, make transparent again 
       TOOLTIP.style("opacity", 0); 
