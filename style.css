@@ -29,37 +29,43 @@ body {
 	flex-wrap: wrap;
 }
 
-/* Sets the colors of the points */
-.point{
+/* Adjusts the style of the points */
+.point {
 	fill: indigo;
 }
 
+/* Changes point style when hovered over */
 .point:hover {
 	fill: yellow;
 }
 
-
-.new-point{
+/* Adjusts the style of new points added */
+.new-point {
 	fill: indigo;
 }
 
+/* Changes color to new point that is hovered over */
 .new-point:hover {
 	fill: yellow;
 }
 
+/* Styles added border */
 .border {
 	stroke: crimson;
 	stroke-width: 5px;
 }
 
+/* Sets bar color */
 .bar {
 	fill: forestgreen;
 }
 
+/* Changes bar style when hovered over */
 .bar:hover {
 	fill: aqua;
 }
 
+/* Sets style of tooltip */
 .tooltip {
 	position: absolute;
 	background-color: gray;
