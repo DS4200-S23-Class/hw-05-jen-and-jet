@@ -50,19 +50,19 @@ function build_interactive_plots() {
             .attr("cy", (d) => { return (Y1_SCALE(d.y) + SCATTER_PLOT_MARGINS.top); }) 
             .attr("r", 10)
             .attr("class", "point")
-            .attr("id", (d) => { return '(' + d.x + ', ' + d.y + ')'; })
+            .attr("id", (d) => { return '(' + d.x + ', ' + d.y + ')'; });
 
     // Add X axis  
     FRAME1.append("g") 
           .attr("transform", "translate(" + SCATTER_PLOT_MARGINS.left + "," + (SCATTER_VIS_HEIGHT + SCATTER_PLOT_MARGINS.top) + ")") 
           .call(d3.axisBottom(X1_SCALE).ticks(4)) 
-            .attr("font-size", '20px');
+          .attr("font-size", '20px');
 
     // Add Y axis
     FRAME1.append("g")       
           .attr("transform", "translate(" + SCATTER_PLOT_MARGINS.left + "," + SCATTER_PLOT_MARGINS.bottom + ")")
           .call(d3.axisLeft(Y1_SCALE).ticks(4))
-            .attr("font-size", "20px");
+          .attr("font-size", "20px");
 
 
     // Event handler for adding a border on a point
@@ -70,9 +70,9 @@ function build_interactive_plots() {
 
       // Add or remove a point's border when clicked on
       if (Object.values(this.classList).includes('border')) {
-        this.classList.remove('border')
+        this.classList.remove('border');
       } else {
-        this.classList.add('border')
+        this.classList.add('border');
       }
 
       // Show coordinates of last point clicked
@@ -114,7 +114,7 @@ function build_interactive_plots() {
           // Call function (adding a point) when clicked
           .addEventListener('click', addPoint);
 
-    // Add event listeners that adds/removes border to any point clicked on
+    // Add event listeners that add/remove the border to any point clicked on
     FRAME1.selectAll(".point")
       .on('click', toggleBorder);
 
@@ -129,7 +129,7 @@ function build_interactive_plots() {
   const BAR_FRAME_WIDTH = 460 - BAR_CHART_MARGINS.left - BAR_CHART_MARGINS.right;
   const BAR_FRAME_HEIGHT = 400 - BAR_CHART_MARGINS.top - BAR_CHART_MARGINS.bottom;
 
-  // Append the SVG object to the body of the page
+  // Append the bar graph frame to the body of the page
   const FRAME2 = d3.select("#vis2")
                     .append("svg")
                     .attr("width", BAR_FRAME_WIDTH + BAR_CHART_MARGINS.left + BAR_CHART_MARGINS.right)
@@ -140,7 +140,7 @@ function build_interactive_plots() {
   // Parse bar graph data
   d3.csv("data/bar-data.csv").then((data) => {
 
-    // X axis
+    // Scale X axis
     const BAR_X_SCALE = d3.scaleBand()
                           .range([ 0, BAR_FRAME_WIDTH ])
                           .domain(data.map(function(d) { return d.category; }))
@@ -157,7 +157,7 @@ function build_interactive_plots() {
     // Find max Y value
     const MAX_VAL = d3.max(data, (d) => { return parseInt(d.amount); });
 
-    // Scale Y
+    // Scale Y axis
     const BAR_Y_SCALE = d3.scaleLinear()
                           .domain([0, MAX_VAL])
                           .range([ BAR_FRAME_HEIGHT, 0]);
@@ -166,7 +166,7 @@ function build_interactive_plots() {
     FRAME2.append("g")
           .call(d3.axisLeft(BAR_Y_SCALE));
 
-    // Create bars
+    // Create bars, which are scaled accordingly
     FRAME2.selectAll("mybar")
           .data(data)
           .enter()
@@ -202,11 +202,11 @@ function build_interactive_plots() {
 
     // Event handler
     function handleMouseleave(event, d) {
-      // on mouseleave, make transparent again 
+      // on mouseleave, make the tooltip transparent again 
       TOOLTIP.style("opacity", 0); 
     } 
 
-    // Add event listeners
+    // Add tooltip event listeners
     FRAME2.selectAll(".bar")
           .on("mouseover", handleMouseover)
           .on("mousemove", handleMousemove)
@@ -214,5 +214,5 @@ function build_interactive_plots() {
   });
 }
 
-// Call function 
+// Call function to display the plots
 build_interactive_plots();

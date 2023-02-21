@@ -39,16 +39,6 @@ body {
 	fill: yellow;
 }
 
-/* Adjusts the style of new points added */
-.new-point {
-	fill: indigo;
-}
-
-/* Changes color to new point that is hovered over */
-.new-point:hover {
-	fill: yellow;
-}
-
 /* Styles added border */
 .border {
 	stroke: crimson;
@@ -68,7 +58,7 @@ body {
 /* Sets style of tooltip */
 .tooltip {
 	position: absolute;
-	background-color: gray;
+	background-color: mediumpurple;
 	border: solid;
 	padding: 5px;
 }
