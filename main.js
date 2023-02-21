@@ -56,7 +56,7 @@ function build_interactive_plots() {
     FRAME1.append("g") 
           .attr("transform", "translate(" + SCATTER_PLOT_MARGINS.left + "," + (SCATTER_VIS_HEIGHT + SCATTER_PLOT_MARGINS.top) + ")") 
           .call(d3.axisBottom(X1_SCALE).ticks(4)) 
-          .attr("font-size", '20px');
+          .attr("font-size", "20px");
 
     // Add Y axis
     FRAME1.append("g")       
@@ -69,10 +69,10 @@ function build_interactive_plots() {
     function toggleBorder(event, d) {
 
       // Add or remove a point's border when clicked on
-      if (Object.values(this.classList).includes('border')) {
-        this.classList.remove('border');
+      if (Object.values(this.classList).includes("border")) {
+        this.classList.remove("border");
       } else {
-        this.classList.add('border');
+        this.classList.add("border");
       }
 
       // Show coordinates of last point clicked
@@ -92,8 +92,8 @@ function build_interactive_plots() {
       const RADIUS = 10;
 
       // Obtain user inputted coordinate values
-      let selectXCoord = document.getElementById('selectXCoord');
-      let selectYCoord = document.getElementById('selectYCoord');
+      let selectXCoord = document.getElementById("selectXCoord");
+      let selectYCoord = document.getElementById("selectYCoord");
 
       // Convert user input into numbers
       let x_coord = Number(selectXCoord.options[selectXCoord.selectedIndex].text);
@@ -105,18 +105,18 @@ function build_interactive_plots() {
             .attr("cy", (Y1_SCALE(y_coord) + SCATTER_PLOT_MARGINS.top)) 
             .attr("r", 10)
             .attr("class", "point")
-            .attr("id", '(' + x_coord + ', ' + y_coord + ')')
-            .on('click', toggleBorder);
+            .attr("id", "(" + x_coord + ", " + y_coord + ")")
+            .on("click", toggleBorder);
       }
 
     // Get button for adding a point
-    document.getElementById('addPoint')
+    document.getElementById("addPoint")
           // Call function (adding a point) when clicked
-          .addEventListener('click', addPoint);
+          .addEventListener("click", addPoint);
 
     // Add event listeners that add/remove the border to any point clicked on
     FRAME1.selectAll(".point")
-      .on('click', toggleBorder);
+      .on("click", toggleBorder);
 
   }); 
 
