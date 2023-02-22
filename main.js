@@ -50,7 +50,7 @@ function build_interactive_plots() {
             .attr("cy", (d) => { return (Y1_SCALE(d.y) + SCATTER_PLOT_MARGINS.top); }) 
             .attr("r", 10)
             .attr("class", "point")
-            .attr("id", (d) => { return '(' + d.x + ', ' + d.y + ')'; });
+            .attr("id", (d) => { return "(" + d.x + ", " + d.y + ")"; });
 
     // Add X axis  
     FRAME1.append("g") 
